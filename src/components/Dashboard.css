@@ -1,0 +1,340 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (max-width: 576px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.dashboard-header h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.dashboard-header .subtitle {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.add-quick-btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 15px rgba(230, 57, 70, 0.2);
+}
+
+.add-quick-btn:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 6px 20px rgba(230, 57, 70, 0.35);
+  transform: translateY(-1px);
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.stat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.stat-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-icon-wrapper {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-icon-wrapper.blue {
+  background: rgba(0, 180, 216, 0.1);
+  color: var(--info);
+}
+
+.stat-icon-wrapper.red {
+  background: rgba(230, 57, 70, 0.1);
+  color: var(--primary-hover);
+}
+
+.stat-icon-wrapper.yellow {
+  background: rgba(255, 183, 3, 0.1);
+  color: var(--warning);
+}
+
+.stat-icon-wrapper.green {
+  background: rgba(46, 196, 182, 0.1);
+  color: var(--success);
+}
+
+.stat-card-body h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.unit-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.stat-trend {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+.stat-trend.positive {
+  color: var(--success);
+}
+
+.stat-trend.warning-trend {
+  color: var(--warning);
+}
+
+/* Dashboard content grid */
+.dashboard-content-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 992px) {
+  .dashboard-content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.panel-header h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.panel-icon {
+  color: var(--primary-hover);
+}
+
+/* Blood stock styles */
+.stock-list {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.stock-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.stock-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.blood-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(230, 57, 70, 0.12);
+  border: 1px solid rgba(230, 57, 70, 0.2);
+  border-radius: var(--radius-sm);
+  color: var(--primary-hover);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.stock-count {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Recent Donors Styles */
+.recent-list {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 250px;
+}
+
+.empty-recent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: var(--text-muted);
+  gap: 0.75rem;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.empty-icon {
+  color: rgba(255,255,255,0.05);
+}
+
+.add-btn-inline {
+  background: transparent;
+  border: 1px dashed var(--primary);
+  color: var(--primary-hover);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-top: 0.5rem;
+}
+
+.add-btn-inline:hover {
+  background: var(--primary-light);
+  border-style: solid;
+}
+
+.recent-donor-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  transition: all var(--transition-fast);
+}
+
+.recent-donor-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--border-color);
+  transform: translateX(3px);
+}
+
+.recent-donor-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-full);
+  background: rgba(230, 57, 70, 0.08);
+  border: 1px solid rgba(230, 57, 70, 0.15);
+  color: var(--primary-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.recent-donor-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.recent-donor-info h5 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.donor-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.donor-meta-item {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.recent-donor-status {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.recent-donor-status .phone-num {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.recent-donor-status .date-added {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
