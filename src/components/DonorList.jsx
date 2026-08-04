@@ -9,11 +9,18 @@ export default function DonorList({ donors = [], onEdit, onDelete, setActiveTab 
 
   // Filtering Logic
   const filteredDonors = donors.filter((donor) => {
+    const name = donor.name ? String(donor.name).toLowerCase() : '';
+    const phone = donor.phone ? String(donor.phone) : '';
+    const email = donor.email ? String(donor.email).toLowerCase() : '';
+    const city = donor.city ? String(donor.city).toLowerCase() : '';
+    
+    const search = searchTerm.toLowerCase();
+
     const matchesSearch = 
-      donor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      donor.phone.includes(searchTerm) ||
-      (donor.email && donor.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      donor.city.toLowerCase().includes(searchTerm.toLowerCase());
+      name.includes(search) ||
+      phone.includes(search) ||
+      email.includes(search) ||
+      city.includes(search);
 
     const matchesBlood = bloodFilter ? donor.bloodGroup === bloodFilter : true;
 
