@@ -6,6 +6,8 @@ export default function DonorList({ donors = [], onEdit, onDelete, setActiveTab 
   const [searchTerm, setSearchTerm] = useState('');
   const [bloodFilter, setBloodFilter] = useState('');
   const [selectedDonor, setSelectedDonor] = useState(null); // For detail view modal
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   // Filtering Logic
   const filteredDonors = donors.filter((donor) => {
@@ -26,6 +28,12 @@ export default function DonorList({ donors = [], onEdit, onDelete, setActiveTab 
 
     return matchesSearch && matchesBlood;
   });
+
+  // Pagination Calculations
+  const totalPages = Math.ceil(filteredDonors.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredDonors.slice(indexOfFirstItem, indexOfLastItem);
 
   const handleDelete = (id, name) => {
     if (window.confirm(`Are you sure you want to delete donor: ${name}?`)) {
@@ -55,7 +63,7 @@ export default function DonorList({ donors = [], onEdit, onDelete, setActiveTab 
             type="text"
             placeholder="Search by name, phone, city..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
           />
         </div>
 
@@ -63,7 +71,7 @@ export default function DonorList({ donors = [], onEdit, onDelete, setActiveTab 
           <Filter className="filter-icon" size={18} />
           <select
             value={bloodFilter}
-            onChange={(e) => setBloodFilter(e.target.value)}
+            onChange={(e) => { setBloodFilter(e.target.value); setCurrentPage(1); }}
           >
             <option value="">All Blood Groups</option>
             <option value="A+">A+</option>
@@ -116,7 +124,7 @@ export default function DonorList({ donors = [], onEdit, onDelete, setActiveTab 
               </tr>
             </thead>
             <tbody>
-              {filteredDonors.map((donor) => (
+              {currentItems.map((donor) => (
                 <tr key={donor.id} className="donor-row">
                   {/* Name and Gender */}
                   <td>
@@ -203,6 +211,39 @@ export default function DonorList({ donors = [], onEdit, onDelete, setActiveTab 
               ))}
             </tbody>
           </table>
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="pagination-bar">
+              <button 
+                className="pagination-btn" 
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </button>
+              
+              <div className="pagination-pages">
+                {Array.from({ length: totalPages }, (_, idx) => idx + 1).map(page => (
+                  <button
+                    key={page}
+                    className={`pagination-page-btn ${currentPage === page ? 'active' : ''}`}
+                    onClick={() => setCurrentPage(page)}
+                  >
+                    {page}
+                  </button>
+                ))}
+              </div>
+              
+              <button 
+                className="pagination-btn" 
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+            </div>
+          )}
         </div>
       )}
 
