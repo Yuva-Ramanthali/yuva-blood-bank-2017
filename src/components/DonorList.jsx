@@ -29,11 +29,21 @@ export default function DonorList({ donors = [], onEdit, onDelete, setActiveTab 
     return matchesSearch && matchesBlood;
   });
 
+  // Sort filtered donors in descending order (newest first)
+  const sortedDonors = [...filteredDonors].sort((a, b) => {
+    const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
+    const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+    if (dateB - dateA !== 0) {
+      return dateB - dateA;
+    }
+    return String(b.id).localeCompare(String(a.id));
+  });
+
   // Pagination Calculations
-  const totalPages = Math.ceil(filteredDonors.length / itemsPerPage);
+  const totalPages = Math.ceil(sortedDonors.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredDonors.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = sortedDonors.slice(indexOfFirstItem, indexOfLastItem);
 
   const handleDelete = (id, name) => {
     if (window.confirm(`Are you sure you want to delete donor: ${name}?`)) {
@@ -213,37 +223,35 @@ export default function DonorList({ donors = [], onEdit, onDelete, setActiveTab 
           </table>
 
           {/* Pagination Controls */}
-          {totalPages > 1 && (
-            <div className="pagination-bar">
-              <button 
-                className="pagination-btn" 
-                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-              >
-                Previous
-              </button>
-              
-              <div className="pagination-pages">
-                {Array.from({ length: totalPages }, (_, idx) => idx + 1).map(page => (
-                  <button
-                    key={page}
-                    className={`pagination-page-btn ${currentPage === page ? 'active' : ''}`}
-                    onClick={() => setCurrentPage(page)}
-                  >
-                    {page}
-                  </button>
-                ))}
-              </div>
-              
-              <button 
-                className="pagination-btn" 
-                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                disabled={currentPage === totalPages}
-              >
-                Next
-              </button>
+          <div className="pagination-bar">
+            <button 
+              className="pagination-btn" 
+              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            
+            <div className="pagination-pages">
+              {Array.from({ length: totalPages || 1 }, (_, idx) => idx + 1).map(page => (
+                <button
+                  key={page}
+                  className={`pagination-page-btn ${currentPage === page ? 'active' : ''}`}
+                  onClick={() => setCurrentPage(page)}
+                >
+                  {page}
+                </button>
+              ))}
             </div>
-          )}
+            
+            <button 
+              className="pagination-btn" 
+              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages || 1))}
+              disabled={currentPage === (totalPages || 1)}
+            >
+              Next
+            </button>
+          </div>
         </div>
       )}
 
