@@ -49,7 +49,7 @@ export default function App() {
       }
     } catch (err) {
       console.error('Failed to fetch donors from Google Sheets:', err);
-      setError('Could not connect to Google Sheets database. Showing offline cached data.');
+      setError('Could not connect to Yuva Blood Bank. Showing offline cached data.');
       // Load fallback local storage if API fails
       const savedDonors = localStorage.getItem('blood_bank_donors');
       if (savedDonors) {
@@ -115,7 +115,7 @@ export default function App() {
         }
         setActiveTab('donor-list');
       } else {
-        throw new Error(result.error || 'Failed to save to Google Sheets');
+        throw new Error(result.error || 'Failed to save to Yuva Blood Bank');
       }
     } catch (err) {
       console.error('Error saving donor:', err);
@@ -152,7 +152,7 @@ export default function App() {
       if (result.success) {
         setDonors((prev) => prev.filter((d) => String(d.id) !== String(id)));
       } else {
-        throw new Error(result.error || 'Failed to delete from Google Sheets');
+        throw new Error(result.error || 'Failed to delete from Yuva Blood Bank');
       }
     } catch (err) {
       console.error('Error deleting donor:', err);
@@ -207,7 +207,7 @@ export default function App() {
           <div className="loading-overlay">
             <div className="overlay-content">
               <Loader2 className="spinner-icon animate-spin" size={32} />
-              <span>Saving changes to Google Sheet Database...</span>
+              <span>Saving changes to Yuva Blood Bank...</span>
             </div>
           </div>
         )}
@@ -216,7 +216,7 @@ export default function App() {
           {loading ? (
             <div className="global-loader-container">
               <Loader2 className="spinner-icon animate-spin" size={48} />
-              <h4>Connecting to Google Sheets Database...</h4>
+              <h4>Connecting to Yuva Blood Bank...</h4>
               <p>Fetching active blood donor records</p>
             </div>
           ) : (
