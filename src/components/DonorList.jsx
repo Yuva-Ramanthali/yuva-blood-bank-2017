@@ -29,21 +29,11 @@ export default function DonorList({ donors = [], onEdit, onDelete, setActiveTab 
     return matchesSearch && matchesBlood;
   });
 
-  // Sort filtered donors in descending order (newest first)
-  const sortedDonors = [...filteredDonors].sort((a, b) => {
-    const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
-    const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
-    if (dateB - dateA !== 0) {
-      return dateB - dateA;
-    }
-    return String(b.id).localeCompare(String(a.id));
-  });
-
   // Pagination Calculations
-  const totalPages = Math.ceil(sortedDonors.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredDonors.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = sortedDonors.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredDonors.slice(indexOfFirstItem, indexOfLastItem);
 
   const handleDelete = (id, name) => {
     if (window.confirm(`Are you sure you want to delete donor: ${name}?`)) {

@@ -40,7 +40,8 @@ export default function App() {
       }
       const data = await response.json();
       if (Array.isArray(data)) {
-        setDonors(data);
+        // Reverse array so bottom rows of Google Sheets (newest) show at index 0 (descending order)
+        setDonors(data.reverse());
       } else if (data.error) {
         throw new Error(data.error);
       } else {
