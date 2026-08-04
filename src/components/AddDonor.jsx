@@ -66,31 +66,30 @@ export default function AddDonor({ onAddDonor, donorToEdit, onCancelEdit }) {
   const validate = () => {
     const newErrors = {};
     
-    if (!formData.name.trim()) newErrors.name = 'Full name is required';
+    if (!formData.name.trim()) {
+      newErrors.name = 'Full name is required';
+    }
     
-    if (!formData.age) {
-      newErrors.age = 'Age is required';
-    } else {
+    if (!formData.bloodGroup) {
+      newErrors.bloodGroup = 'Blood group is required';
+    }
+
+    if (formData.age) {
       const ageNum = parseInt(formData.age, 10);
       if (isNaN(ageNum) || ageNum < 18 || ageNum > 65) {
         newErrors.age = 'Donor must be between 18 and 65 years old';
       }
     }
-
-    if (!formData.gender) newErrors.gender = 'Gender selection is required';
-    if (!formData.bloodGroup) newErrors.bloodGroup = 'Blood group is required';
     
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
-    } else if (!/^\d{10}$/.test(formData.phone.replace(/[\s-]/g, ''))) {
-      newErrors.phone = 'Enter a valid 10-digit phone number';
+    if (formData.phone && formData.phone.trim()) {
+      if (!/^\d{10}$/.test(formData.phone.replace(/[\s-]/g, ''))) {
+        newErrors.phone = 'Enter a valid 10-digit phone number';
+      }
     }
 
-    if (formData.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if (formData.email && formData.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Enter a valid email address';
     }
-
-    if (!formData.city.trim()) newErrors.city = 'City/Location is required';
 
     if (formData.lastDonation) {
       const donationDate = new Date(formData.lastDonation);
@@ -193,7 +192,7 @@ export default function AddDonor({ onAddDonor, donorToEdit, onCancelEdit }) {
 
             {/* Age */}
             <div className="form-item">
-              <label htmlFor="age">Age (18 - 65) <span className="req">*</span></label>
+              <label htmlFor="age">Age (18 - 65)</label>
               <div className={`form-input-wrapper ${errors.age ? 'has-error' : ''}`}>
                 <Calendar className="form-icon" size={18} />
                 <input
@@ -210,7 +209,7 @@ export default function AddDonor({ onAddDonor, donorToEdit, onCancelEdit }) {
 
             {/* Gender */}
             <div className="form-item">
-              <label htmlFor="gender">Gender <span className="req">*</span></label>
+              <label htmlFor="gender">Gender</label>
               <div className={`form-input-wrapper ${errors.gender ? 'has-error' : ''}`}>
                 <User className="form-icon" size={18} />
                 <select
@@ -255,7 +254,7 @@ export default function AddDonor({ onAddDonor, donorToEdit, onCancelEdit }) {
 
             {/* Phone */}
             <div className="form-item">
-              <label htmlFor="phone">Phone Number <span className="req">*</span></label>
+              <label htmlFor="phone">Phone Number</label>
               <div className={`form-input-wrapper ${errors.phone ? 'has-error' : ''}`}>
                 <Phone className="form-icon" size={18} />
                 <input
@@ -289,7 +288,7 @@ export default function AddDonor({ onAddDonor, donorToEdit, onCancelEdit }) {
 
             {/* City */}
             <div className="form-item">
-              <label htmlFor="city">City / Location <span className="req">*</span></label>
+              <label htmlFor="city">City / Location</label>
               <div className={`form-input-wrapper ${errors.city ? 'has-error' : ''}`}>
                 <MapPin className="form-icon" size={18} />
                 <input
