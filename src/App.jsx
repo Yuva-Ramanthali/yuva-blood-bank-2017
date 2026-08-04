@@ -105,7 +105,7 @@ export default function App() {
         if (donorToEdit) {
           // Edit local state
           setDonors((prev) =>
-            prev.map((d) => (d.id === donor.id ? donor : d))
+            prev.map((d) => (String(d.id) === String(donor.id) ? donor : d))
           );
           setDonorToEdit(null);
         } else {
@@ -122,7 +122,7 @@ export default function App() {
       
       // Local fallback in case of errors
       if (donorToEdit) {
-        setDonors((prev) => prev.map((d) => (d.id === donor.id ? donor : d)));
+        setDonors((prev) => prev.map((d) => (String(d.id) === String(donor.id) ? donor : d)));
         setDonorToEdit(null);
       } else {
         setDonors((prev) => [donor, ...prev]);
@@ -149,14 +149,14 @@ export default function App() {
 
       const result = await response.json();
       if (result.success) {
-        setDonors((prev) => prev.filter((donor) => donor.id !== id));
+        setDonors((prev) => prev.filter((d) => String(d.id) !== String(id)));
       } else {
         throw new Error(result.error || 'Failed to delete from Google Sheets');
       }
     } catch (err) {
       console.error('Error deleting donor:', err);
       alert(`API Error: ${err.message}. Removing locally instead.`);
-      setDonors((prev) => prev.filter((donor) => donor.id !== id));
+      setDonors((prev) => prev.filter((d) => String(d.id) !== String(id)));
     } finally {
       setSaving(false);
     }
