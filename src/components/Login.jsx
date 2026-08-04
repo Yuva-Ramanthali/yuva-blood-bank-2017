@@ -81,7 +81,7 @@ export default function Login({ onLoginSuccess }) {
                 <input
                   type="email"
                   id="email"
-                  placeholder="yuva@gmail.com"
+                  placeholder="Enter Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={loading}
