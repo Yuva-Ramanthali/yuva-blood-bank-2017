@@ -66,7 +66,11 @@ export default function AddDonor({ onAddDonor, donorToEdit, onCancelEdit }) {
   const validate = () => {
     const newErrors = {};
     
-    if (!formData.name.trim()) {
+    const nameVal = formData.name ? String(formData.name).trim() : '';
+    const phoneVal = formData.phone ? String(formData.phone).trim() : '';
+    const emailVal = formData.email ? String(formData.email).trim() : '';
+
+    if (!nameVal) {
       newErrors.name = 'Full name is required';
     }
     
@@ -81,13 +85,13 @@ export default function AddDonor({ onAddDonor, donorToEdit, onCancelEdit }) {
       }
     }
     
-    if (formData.phone && formData.phone.trim()) {
-      if (!/^\d{10}$/.test(formData.phone.replace(/[\s-]/g, ''))) {
+    if (phoneVal) {
+      if (!/^\d{10}$/.test(phoneVal.replace(/[\s-]/g, ''))) {
         newErrors.phone = 'Enter a valid 10-digit phone number';
       }
     }
 
-    if (formData.email && formData.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
       newErrors.email = 'Enter a valid email address';
     }
 
