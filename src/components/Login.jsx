@@ -116,9 +116,7 @@ export default function Login({ onLoginSuccess }) {
             </button>
           </form>
 
-          <div className="login-footer">
-            <p>Demo Credentials: <code>yuva@gmail.com</code> / <code>yuva1234</code></p>
-          </div>
+          {/* Login footer removed */}
         </div>
       </div>
     </div>
