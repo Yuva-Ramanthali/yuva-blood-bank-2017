@@ -18,9 +18,37 @@
   overflow: hidden;
 }
 
+.mobile-brand-title {
+  display: none;
+}
+
 @media (max-width: 992px) {
   .login-visual {
     display: none;
+  }
+  .mobile-brand-title {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0.5rem 0 1rem;
+    text-align: center;
+    background: linear-gradient(to right, #fff 60%, rgba(255, 255, 255, 0.8));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .login-header h2 {
+    text-align: center;
+    font-size: 1.6rem;
+  }
+  .login-header .subtitle {
+    text-align: center;
+  }
+  .login-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 

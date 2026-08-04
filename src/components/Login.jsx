@@ -61,6 +61,7 @@ export default function Login({ onLoginSuccess }) {
               <img src={logo} className="badge-logo-img" alt="Logo" />
               <span>Portal Access</span>
             </div>
+            <h1 className="mobile-brand-title">YUVA BLOOD BANK</h1>
             <h2>Welcome Back</h2>
             <p className="subtitle">Sign in to manage donors and donations</p>
           </div>
